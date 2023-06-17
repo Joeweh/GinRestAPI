@@ -1,9 +1,9 @@
 package main
 
 import (
-	//"fmt"
+	"os"
+	"log"
 	"net/http"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,5 +20,13 @@ func main() {
 
 	router.POST("/users", SaveUser)
 
-	router.Run("localhost:8080")
+	port := os.Getenv("PORT")
+	
+	if port == "" {
+		port = "8080"
+	}
+	
+	if err := router.Run(":" + port); err != nil {
+        log.Panicf("error: %s", err)
+	}
 }
