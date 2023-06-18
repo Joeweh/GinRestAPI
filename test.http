@@ -1,0 +1,35 @@
+// GET ALL USERS
+GET http://localhost:8080/users
+
+###
+
+// GET ONE USER
+GET http://localhost:8080/users/1
+
+###
+
+// SAVE USER
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "id": 3,
+    "email": "user3@gmail.com",
+    "username": "user3"
+}
+
+###
+
+PUT http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+    "id": 3,
+    "email": "user3@gmail.com",
+    "username": "user3"
+}
+
+###
+
+// DELETE USER
+DELETE http://localhost:8080/users/2

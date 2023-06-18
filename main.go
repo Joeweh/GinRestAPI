@@ -16,10 +16,18 @@ func main() {
 		})
 	})
 
+	// ROUTES
 	router.GET("/users", GetUsers)
+
+	router.GET("/users/:id", GetUser)
 
 	router.POST("/users", SaveUser)
 
+	router.PUT("/users/:id", UpdateUser)
+
+	router.DELETE("/users/:id", DeleteUser)
+
+	// PORT SETUP
 	port := os.Getenv("PORT")
 	
 	if port == "" {
