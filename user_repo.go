@@ -34,14 +34,12 @@ func GetUser(ctx *gin.Context) {
 func SaveUser(ctx *gin.Context) {
 	var newUser user
 
-	id, _ := strconv.ParseInt(ctx.Param("id"), 10, 64)
-
 	if err := ctx.BindJSON(&newUser); err != nil {
 		return
 	}
 
 	for index := 0; index < len(users); index++ {
-		if users[index].ID == id {
+		if users[index].ID == newUser.ID {
 			ctx.Status(http.StatusConflict)
 
 			return
@@ -54,7 +52,27 @@ func SaveUser(ctx *gin.Context) {
 }
 
 func UpdateUser(ctx *gin.Context) {
-	
+	var userDAO updateUserDAO
+
+	id, _ := strconv.ParseInt(ctx.Param("id"), 10, 64)
+
+	if err := ctx.BindJSON(&userDAO); err != nil {
+		return
+	}
+
+	var newUser user = toUser(id, userDAO)
+
+	for index := 0; index < len(users); index++ {
+		if users[index].ID == id {
+			users[index] = newUser
+			
+			ctx.Status(http.StatusNoContent)
+
+			return
+		}
+	}
+
+	ctx.Status(http.StatusNotFound)
 }
 
 func DeleteUser(ctx *gin.Context) {

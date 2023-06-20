@@ -1,9 +1,10 @@
 package main
 
 import (
-	"os"
 	"log"
 	"net/http"
+	"os"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,12 +30,12 @@ func main() {
 
 	// PORT SETUP
 	port := os.Getenv("PORT")
-	
+
 	if port == "" {
 		port = "8080"
 	}
-	
+
 	if err := router.Run(":" + port); err != nil {
-        log.Panicf("error: %s", err)
+		log.Panicf("error: %s", err)
 	}
 }
